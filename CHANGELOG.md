@@ -1,3 +1,13 @@
+# [6.0.0](https://github.com/ionic-team/cordova-plugin-ionic-webview/compare/v5.0.1...v6.0.0) (2025-01-16)
+
+### Features
+
+* **android:** Add RequestedWithAllow preference https://github.com/dualinventive/cordova-plugin-ionic-webview/pull/1
+
+### BREAKING CHANGES
+
+* **android:** Minimum required cordova-android version changed to 12.0
+
 # [5.0.1](https://github.com/ionic-team/cordova-plugin-ionic-webview/compare/v5.0.0...v5.0.1) (2023-08-29)
 
 ### Features
