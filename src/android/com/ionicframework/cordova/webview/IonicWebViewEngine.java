@@ -1,5 +1,6 @@
 package com.ionicframework.cordova.webview;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,6 +15,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
+
 import org.apache.cordova.ConfigXmlParser;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPreferences;
@@ -25,6 +30,8 @@ import org.apache.cordova.PluginManager;
 import org.apache.cordova.engine.SystemWebViewClient;
 import org.apache.cordova.engine.SystemWebViewEngine;
 import org.apache.cordova.engine.SystemWebView;
+
+import java.util.Collections;
 
 public class IonicWebViewEngine extends SystemWebViewEngine {
   public static final String TAG = "IonicWebViewEngine";
@@ -53,12 +60,18 @@ public class IonicWebViewEngine extends SystemWebViewEngine {
     Log.d(TAG, "Ionic Web View Engine Starting Right Up 3...");
   }
 
+  @SuppressLint("RestrictedApi")
   @Override
   public void init(CordovaWebView parentWebView, CordovaInterface cordova, final CordovaWebViewEngine.Client client,
                    CordovaResourceApi resourceApi, PluginManager pluginManager,
                    NativeToJsMessageQueue nativeToJsMessageQueue) {
     ConfigXmlParser parser = new ConfigXmlParser();
     parser.parse(cordova.getActivity());
+
+    String allow = preferences.getString("RequestedWithAllow", "");
+    if (!allow.isEmpty() && WebViewFeature.isFeatureSupported(WebViewFeature.REQUESTED_WITH_HEADER_ALLOW_LIST)) {
+      WebSettingsCompat.setRequestedWithHeaderOriginAllowList(webView.getSettings(), Collections.singleton(allow));
+    }
 
     String hostname = preferences.getString("Hostname", "localhost");
     scheme = preferences.getString("Scheme", "http");

@@ -97,6 +97,15 @@ Other possible values are `1` (`MIXED_CONTENT_NEVER_ALLOW`) and `2` (`MIXED_CONT
 
 [Android documentation](https://developer.android.com/reference/android/webkit/WebSettings.html#setMixedContentMode(int))
 
+#### RequestedWithAllow
+
+```xml
+<preference name="RequestedWithAllow" value="https://example.com" />
+```
+
+Default value is `""`
+
+Enables the X-Requested-With header for specified URL.
 
 ### iOS Preferences
 
